@@ -20,3 +20,20 @@ jobs:
       - uses: chrvadala/github-actions/nodejs-test-library-action@v1
         with:
           NODE_VERSION: ${{ matrix.node }}
+      - name: Publish Coveralls
+        uses: coverallsapp/github-action@v1.1.3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          flag-name: run-nodejs-v${{ matrix.node }}-${{ matrix.os }}
+          parallel: true
+
+  finish:
+    name: Finish
+    needs: build
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Coveralls Finished
+        uses: coverallsapp/github-action@v1.1.3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          parallel-finished: true
