@@ -1,4 +1,4 @@
-import { aggregateFn } from './src/aggregateFn.js'
+import { aggregateFn } from './src/index.js'
 import { promisify } from 'util'
 const sleep = promisify(setTimeout)
 
@@ -11,7 +11,11 @@ const myAggregableAsyncFn = async requests => {
   return responses
 }
 
-const { fn, flush, cancel } = aggregateFn(myAggregableAsyncFn, { maxWait: 200, maxTasks: 2, stats: statsPrinter })
+const { fn, flush, cancel } = aggregateFn(myAggregableAsyncFn, {
+  maxWait: 200,
+  maxTasks: 2,
+  stats: statsPrinter
+})
 
 Promise.all([
   (async function () {
