@@ -23,8 +23,7 @@
 <dt><a href="#aggregateFnReturnObject">aggregateFnReturnObject</a></dt>
 <dd></dd>
 <dt><a href="#statsCb">statsCb</a> : <code>function</code></dt>
-<dd><p>This callback is displayed as part of the Requester class.</p>
-</dd>
+<dd></dd>
 </dl>
 
 # Specs
@@ -46,10 +45,10 @@ Creates a wrapper of the provided function that enables aggregation capabilities
 **Example**  
 ```js
 import { aggregateFn } from 'aggregateFn
-const { fn, flush, cancel } = aggregateFn(myAggregableAsyncFn, { 
-  maxWait: 200, 
-  maxTasks: 2, 
-  stats: console.log 
+const { fn, flush, cancel } = aggregateFn(myAggregableAsyncFn, {
+  maxWait: 200,
+  maxTasks: 2,
+  stats: console.log
 })
 ```
 <a name="aggregateFnReturnObject"></a>
@@ -67,8 +66,6 @@ const { fn, flush, cancel } = aggregateFn(myAggregableAsyncFn, {
 <a name="statsCb"></a>
 
 ## statsCb : <code>function</code>
-This callback is displayed as part of the Requester class.
-
 **Kind**: global typedef  
 
 | Param | Type | Description |
