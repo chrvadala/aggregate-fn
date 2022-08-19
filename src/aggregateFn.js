@@ -101,7 +101,6 @@ export function aggregateFn (fn, { maxWait = 100, maxTasks = 100, stats = null }
  */
 
 /**
- * This callback is displayed as part of the Requester class.
  * @callback statsCb
  * @param {boolean} ok - Indicated if the requested has been completed with success
  * @param {number} count - Number of aggregated requests
