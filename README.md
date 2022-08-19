@@ -15,6 +15,8 @@ This utility can:
 - aggregate requests limiting the delay 
 - provide you interesting metrics
 
+![aggregate-fn descriptive picture](https://github.com/chrvadala/aggregate-fn/blob/main/aggregate-fn.png)
+
 # Documentation
 - [APIs](https://github.com/chrvadala/aggregate-fn/blob/main/docs/api.md)
 
