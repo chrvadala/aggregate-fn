@@ -3,7 +3,7 @@
 Aggregate fn is a Javascript utility that brings together multiple async operations. It is really useful when you want to merge many API requests together.
 
 [![chrvadala](https://img.shields.io/badge/website-chrvadala-orange.svg)](https://chrvadala.github.io)
-[![Test](https://github.com/chrvadala/aggregate-fn/workflows/Test/badge.svg)](https://github.com/chrvadala/node-ble/actions)
+[![Test](https://github.com/chrvadala/aggregate-fn/workflows/Test/badge.svg)](https://github.com/chrvadala/aggregate-fn/actions)
 [![Coverage Status](https://coveralls.io/repos/github/chrvadala/aggregate-fn/badge.svg)](https://coveralls.io/github/chrvadala/aggregate-fn)
 [![npm](https://img.shields.io/npm/v/aggregate-fn.svg?maxAge=2592000?style=plastic)](https://www.npmjs.com/package/aggregate-fn)
 [![Downloads](https://img.shields.io/npm/dm/aggregate-fn.svg)](https://www.npmjs.com/package/aggregate-fn)
