@@ -38,7 +38,7 @@ Creates a wrapper of the provided function that enables aggregation capabilities
 | --- | --- | --- | --- |
 | fn | <code>function</code> |  | Async function that has to be wrapped |
 | options | <code>object</code> |  | Configuration |
-| options.maxWait | <code>number</code> | <code>100</code> | Max ms that the first request in queue can wait |
+| options.maxWait | <code>number</code> | <code>1000</code> | Max ms that the first request in queue can wait |
 | options.maxTasks | <code>number</code> | <code>100</code> | Max number of requests that can be aggregated together |
 | options.stats | [<code>statsCb</code>](#statsCb) |  | Callback called every time that a requested is served. |
 

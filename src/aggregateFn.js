@@ -3,7 +3,7 @@
    * @function aggregateFn
    * @param {function} fn - Async function that has to be wrapped
    * @param {object} options - Configuration
-   * @param {number} options.maxWait=100 - Max ms that the first request in queue can wait
+   * @param {number} options.maxWait=1000 - Max ms that the first request in queue can wait
    * @param {number} options.maxTasks=100 - Max number of requests that can be aggregated together
    * @param {statsCb} options.stats -  Callback called every time that a requested is served.
    * @returns {aggregateFnReturnedObject}
@@ -17,7 +17,7 @@
    * })
    */
 
-export function aggregateFn (fn, { maxWait = 100, maxTasks = 100, stats = null }) {
+export function aggregateFn (fn, { maxWait = 1000, maxTasks = 100, stats = null }) {
   let accumulator = [] // { params, resolve, reject}
   let timer = null
 
