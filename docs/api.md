@@ -12,7 +12,7 @@
 ## Functions
 
 <dl>
-<dt><a href="#aggregateFn">aggregateFn([fn], [options])</a> ⇒ <code><a href="#aggregateFnReturnObject">aggregateFnReturnObject</a></code></dt>
+<dt><a href="#aggregateFn">aggregateFn(fn, options)</a> ⇒ <code><a href="#aggregateFnReturnedObject">aggregateFnReturnedObject</a></code></dt>
 <dd><p>Creates a wrapper of the provided function that enables aggregation capabilities</p>
 </dd>
 </dl>
@@ -20,7 +20,7 @@
 ## Typedefs
 
 <dl>
-<dt><a href="#aggregateFnReturnObject">aggregateFnReturnObject</a></dt>
+<dt><a href="#aggregateFnReturnedObject">aggregateFnReturnedObject</a></dt>
 <dd></dd>
 <dt><a href="#statsCb">statsCb</a> : <code>function</code></dt>
 <dd></dd>
@@ -29,39 +29,39 @@
 # Specs
 <a name="aggregateFn"></a>
 
-## aggregateFn([fn], [options]) ⇒ [<code>aggregateFnReturnObject</code>](#aggregateFnReturnObject)
+## aggregateFn(fn, options) ⇒ [<code>aggregateFnReturnedObject</code>](#aggregateFnReturnedObject)
 Creates a wrapper of the provided function that enables aggregation capabilities
 
 **Kind**: global function  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| [fn] | <code>function</code> |  | Async function that has to be wrapped |
-| [options] | <code>object</code> |  | Configuration |
-| [options.maxWait] | <code>number</code> | <code>100</code> | Max ms that the first request in queue can wait |
-| [options.maxTasks] | <code>number</code> | <code>100</code> | Max number of requests that can be aggregated together |
-| [options.stats] | [<code>statsCb</code>](#statsCb) |  | Callback called every time that a requested is served. |
+| fn | <code>function</code> |  | Async function that has to be wrapped |
+| options | <code>object</code> |  | Configuration |
+| options.maxWait | <code>number</code> | <code>100</code> | Max ms that the first request in queue can wait |
+| options.maxTasks | <code>number</code> | <code>100</code> | Max number of requests that can be aggregated together |
+| options.stats | [<code>statsCb</code>](#statsCb) |  | Callback called every time that a requested is served. |
 
 **Example**  
 ```js
-import { aggregateFn } from 'aggregateFn
-const { fn, flush, cancel } = aggregateFn(myAggregableAsyncFn, {
+import { aggregateFn } from 'aggregateFn'
+const { fn, flush, cancel } = aggregateFn( myAggregableAsyncFn, {
   maxWait: 200,
   maxTasks: 2,
   stats: console.log
 })
 ```
-<a name="aggregateFnReturnObject"></a>
+<a name="aggregateFnReturnedObject"></a>
 
-## aggregateFnReturnObject
+## aggregateFnReturnedObject
 **Kind**: global typedef  
 **Properties**
 
 | Name | Type | Description |
 | --- | --- | --- |
-| [fn] | <code>function</code> | Wrapped version of the provided function |
-| [flush] | <code>function</code> | A function that forces to call immediately the original function regardless of maxWait and maxTasks configuration |
-| [cancel] | <code>function</code> | A function that cancels any pending request |
+| fn | <code>function</code> | Wrapped version of the provided function |
+| flush | <code>function</code> | A function that forces to call immediately the original function regardless of maxWait and maxTasks configuration |
+| cancel | <code>function</code> | A function that cancels any pending request |
 
 <a name="statsCb"></a>
 
