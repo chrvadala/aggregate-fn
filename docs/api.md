@@ -38,16 +38,16 @@ Creates a wrapper of the provided function that enables aggregation capabilities
 | --- | --- | --- | --- |
 | fn | <code>function</code> |  | Async function that has to be wrapped |
 | options | <code>object</code> |  | Configuration |
-| options.maxWait | <code>number</code> | <code>1000</code> | Max ms that the first request in queue can wait |
-| options.maxTasks | <code>number</code> | <code>100</code> | Max number of requests that can be aggregated together |
+| options.maxWaitTime | <code>number</code> | <code>1000</code> | Max delay that can be introduced (calculated on the older item in queue ) |
+| options.maxItems | <code>number</code> | <code>100</code> | Max number of items that can be aggregated together |
 | options.stats | [<code>statsCb</code>](#statsCb) |  | Callback called every time that a requested is served. |
 
 **Example**  
 ```js
 import { aggregateFn } from 'aggregateFn'
 const { fn, flush, cancel } = aggregateFn( myAggregableAsyncFn, {
-  maxWait: 200,
-  maxTasks: 2,
+  maxWaitTime: 200,
+  maxItems: 2,
   stats: console.log
 })
 ```
@@ -60,7 +60,7 @@ const { fn, flush, cancel } = aggregateFn( myAggregableAsyncFn, {
 | Name | Type | Description |
 | --- | --- | --- |
 | fn | <code>function</code> | Wrapped version of the provided function |
-| flush | <code>function</code> | A function that forces to call immediately the original function regardless of maxWait and maxTasks configuration |
+| flush | <code>function</code> | A function that forces to call immediately the original function regardless of maxWaitTime and maxItems configuration |
 | cancel | <code>function</code> | A function that cancels any pending request |
 
 <a name="statsCb"></a>
@@ -72,6 +72,6 @@ const { fn, flush, cancel } = aggregateFn( myAggregableAsyncFn, {
 | --- | --- | --- |
 | ok | <code>boolean</code> | Indicated if the requested has been completed with success |
 | count | <code>number</code> | Number of aggregated requests |
-| swarf | <code>number</code> | Indicates the wasted aggregation (maxTasks - count) |
+| swarf | <code>number</code> | Indicates the wasted aggregation (maxItems - count) |
 | delay | <code>number</code> | Delay introduced to the first queued request |
 

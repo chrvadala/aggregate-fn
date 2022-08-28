@@ -22,9 +22,9 @@ afterEach(() => {
 })
 
 describe('aggregateFn base operations', () => {
-  it('flushes because reached maxTasks', async () => {
+  it('flushes because reached maxItems', async () => {
     expect.assertions(6)
-    const { fn } = aggregateFn(aggregableFuncThatResolves, { maxWait: INFINITE, maxTasks: 3 })
+    const { fn } = aggregateFn(aggregableFuncThatResolves, { maxWaitTime: INFINITE, maxItems: 3 })
 
     const res1 = fn(1)
     const res2 = fn(2)
@@ -38,11 +38,11 @@ describe('aggregateFn base operations', () => {
     expect(aggregableFuncCalledTimes).toBe(1)
   })
 
-  it('flushes because reached maxWait time', async () => {
+  it('flushes because reached maxWaitTime time', async () => {
     expect.assertions(5)
     jest.useFakeTimers()
 
-    const { fn } = aggregateFn(aggregableFuncThatResolves, { maxWait: 300, maxTasks: INFINITE })
+    const { fn } = aggregateFn(aggregableFuncThatResolves, { maxWaitTime: 300, maxItems: INFINITE })
 
     const res1 = fn(1)
     const res2 = fn(2)
@@ -62,7 +62,7 @@ describe('aggregateFn base operations', () => {
     expect.assertions(5)
     jest.useFakeTimers()
 
-    const { fn, flush } = aggregateFn(aggregableFuncThatResolves, { maxWait: INFINITE, maxTasks: INFINITE })
+    const { fn, flush } = aggregateFn(aggregableFuncThatResolves, { maxWaitTime: INFINITE, maxItems: INFINITE })
 
     const res1 = fn(1)
     const res2 = fn(2)
@@ -81,7 +81,7 @@ describe('aggregateFn base operations', () => {
   it('flushes because cancel() has been called', async () => {
     expect.assertions(5)
 
-    const { fn, cancel } = aggregateFn(aggregableFuncThatResolves, { maxWait: INFINITE, maxTasks: INFINITE })
+    const { fn, cancel } = aggregateFn(aggregableFuncThatResolves, { maxWaitTime: INFINITE, maxItems: INFINITE })
 
     const res1 = fn(1)
     const res2 = fn(2)
@@ -100,7 +100,7 @@ describe('aggregateFn base operations', () => {
   it('should reject', async () => {
     expect.assertions(4)
 
-    const { fn, flush } = aggregateFn(aggregableFuncThatRejects, { maxWait: INFINITE, maxTasks: INFINITE })
+    const { fn, flush } = aggregateFn(aggregableFuncThatRejects, { maxWaitTime: INFINITE, maxItems: INFINITE })
 
     const res1 = expect(fn(1)).rejects.toThrow('fn_error')
     const res2 = expect(fn(2)).rejects.toThrow('fn_error')
@@ -115,7 +115,7 @@ describe('aggregateFn base operations', () => {
   it('flushes because rechead number of tasks or wait time', async () => {
     expect.assertions(9)
     jest.useFakeTimers()
-    const { fn, flush } = aggregateFn(aggregableFuncThatResolves, { maxWait: 100, maxTasks: 3 })
+    const { fn, flush } = aggregateFn(aggregableFuncThatResolves, { maxWaitTime: 100, maxItems: 3 })
 
     const res1 = expect(fn(1)).resolves.toBe(2)
     const res2 = expect(fn(2)).resolves.toBe(4)
@@ -145,7 +145,7 @@ describe('aggregateFn base operations', () => {
       return params.map(([a, b, c]) => a + b + c)
     }
 
-    const { fn, flush } = aggregateFn(originalFn, { maxWait: INFINITE, maxTasks: INFINITE })
+    const { fn, flush } = aggregateFn(originalFn, { maxWaitTime: INFINITE, maxItems: INFINITE })
     const res1 = fn(1, 2, 3)
     const res2 = fn(4, 5, 6)
     await flush()
@@ -160,7 +160,7 @@ describe('aggregateFn base operations', () => {
       return [3, 5]
     }
 
-    const { fn, flush } = aggregateFn(originalFn, { maxWait: INFINITE, maxTasks: INFINITE })
+    const { fn, flush } = aggregateFn(originalFn, { maxWaitTime: INFINITE, maxItems: INFINITE })
     const res1 = fn()
     const res2 = fn()
     await flush()
@@ -174,7 +174,7 @@ describe('aggregateFn base operations', () => {
       expect(params).toHaveLength(3)
       return [3, 5]
     }
-    const { fn, flush } = aggregateFn(originalFn, { maxWait: INFINITE, maxTasks: INFINITE })
+    const { fn, flush } = aggregateFn(originalFn, { maxWaitTime: INFINITE, maxItems: INFINITE })
 
     const res1 = expect(fn()).rejects.toThrow('fn() returns an array with mismatching length')
     const res2 = expect(fn()).rejects.toThrow('fn() returns an array with mismatching length')
@@ -190,7 +190,7 @@ describe('aggregateFn stats', () => {
     expect.assertions(2)
     jest.useFakeTimers()
     const stats = jest.fn()
-    const { fn, flush } = aggregateFn(aggregableFuncThatResolves, { maxWait: 1000, maxTasks: 100, stats })
+    const { fn, flush } = aggregateFn(aggregableFuncThatResolves, { maxWaitTime: 1000, maxItems: 100, stats })
 
     const res1 = fn(1)
     const res2 = fn(2)
@@ -209,11 +209,11 @@ describe('aggregateFn stats', () => {
     })
   })
 
-  test('behaviour when flushed for maxWait time', async () => {
+  test('behaviour when flushed for maxWaitTime time', async () => {
     expect.assertions(2)
     jest.useFakeTimers()
     const stats = jest.fn()
-    const { fn } = aggregateFn(aggregableFuncThatResolves, { maxWait: 1000, maxTasks: 800, stats })
+    const { fn } = aggregateFn(aggregableFuncThatResolves, { maxWaitTime: 1000, maxItems: 800, stats })
 
     const res1 = fn(1)
     const res2 = fn(2)
@@ -236,7 +236,7 @@ describe('aggregateFn stats', () => {
     expect.assertions(2)
     jest.useFakeTimers()
     const stats = jest.fn()
-    const { fn } = aggregateFn(aggregableFuncThatResolves, { maxWait: INFINITE, maxTasks: 3, stats })
+    const { fn } = aggregateFn(aggregableFuncThatResolves, { maxWaitTime: INFINITE, maxItems: 3, stats })
 
     jest.advanceTimersByTime(75)
     const res1 = fn(1)
@@ -259,7 +259,7 @@ describe('aggregateFn stats', () => {
   test('empty flush', async () => {
     expect.assertions(2)
     const stats = jest.fn()
-    const { flush } = aggregateFn(aggregableFuncThatResolves, { maxWait: 1000, maxTasks: 500, stats })
+    const { flush } = aggregateFn(aggregableFuncThatResolves, { maxWaitTime: 1000, maxItems: 500, stats })
 
     await flush()
 

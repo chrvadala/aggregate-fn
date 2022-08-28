@@ -13,8 +13,8 @@ const myAggregableAsyncFn = async requests => {
 
 // Init aggregatedFn
 const { fn, flush, cancel } = aggregateFn(myAggregableAsyncFn, {
-  maxWait: 200,
-  maxTasks: 2,
+  maxWaitTime: 200,
+  maxItems: 2,
   stats: statsPrinter
 })
 

@@ -45,8 +45,8 @@ const myAggregableAsyncFn = async requests => {
 
 // Init aggregateFn
 const { fn, flush, cancel } = aggregateFn(myAggregableAsyncFn, {
-  maxWait: 200,
-  maxTasks: 2,
+  maxWaitTime: 200,
+  maxItems: 2,
   stats: statsPrinter
 })
 
@@ -90,8 +90,8 @@ const SPOTIFY_SECRET = process.env.SPOTIFY_SECRET
 
 // Init aggregateFn
 const aggregateFnOpts = {
-  maxWait: 1000,
-  maxTasks: 10,
+  maxWaitTime: 1000,
+  maxItems: 10,
   stats: stats => console.log(`Stats: ${JSON.stringify(stats)}`)
 }
 

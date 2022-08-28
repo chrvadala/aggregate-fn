@@ -6,8 +6,8 @@ const SPOTIFY_SECRET = process.env.SPOTIFY_SECRET
 
 // Init aggregatedFn
 const aggregateFnOpts = {
-  maxWait: 1000,
-  maxTasks: 10,
+  maxWaitTime: 1000,
+  maxItems: 10,
   stats: stats => console.log(`Stats: ${JSON.stringify(stats)}`)
 }
 
