@@ -1,6 +1,6 @@
 {
   "name": "aggregate-fn",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Aggregate fn is a Javascript utility that brings together multiple async operations. ",
   "type": "module",
   "main": "./src/index.js",
