@@ -271,4 +271,11 @@ describe('aggregateFn stats', () => {
       delay: 0
     })
   })
+
+  test('default options', () => {
+    const originalFn = jest.fn()
+    const { fn } = aggregateFn(originalFn)
+
+    expect(fn).toBeInstanceOf(Function)
+  })
 })

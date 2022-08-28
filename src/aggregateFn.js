@@ -1,3 +1,6 @@
+const DEFAULT_MAX_WAIT_TIME = 1000
+const DEFAULT_MAX_ITEMS = 100
+
 /**
    * Creates a wrapper of the provided function that enables aggregation capabilities
    * @function aggregateFn
@@ -17,7 +20,7 @@
    * })
    */
 
-export function aggregateFn (fn, { maxWaitTime = 1000, maxItems = 100, stats = null }) {
+export function aggregateFn (fn, { maxWaitTime = DEFAULT_MAX_WAIT_TIME, maxItems = DEFAULT_MAX_ITEMS, stats = null } = {}) {
   let accumulator = [] // { params, resolve, reject}
   let timer = null
 
