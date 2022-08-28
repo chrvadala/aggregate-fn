@@ -204,7 +204,7 @@ describe('aggregateFn stats', () => {
     expect(stats).toHaveBeenCalledWith({
       ok: true,
       count: 3,
-      swarf: 100 - 3, // maxCapacity - accumulator.length
+      swarf: 100 - 3, // maxItems - accumulator.length
       delay: 305 // time lost waiting to be resolved
     })
   })
@@ -232,7 +232,7 @@ describe('aggregateFn stats', () => {
     })
   })
 
-  test('behaviour when flushed for maxCapacity', async () => {
+  test('behaviour when flushed for maxItems', async () => {
     expect.assertions(2)
     jest.useFakeTimers()
     const stats = jest.fn()
