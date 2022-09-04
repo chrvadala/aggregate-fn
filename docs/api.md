@@ -36,7 +36,7 @@ Creates a wrapper of the provided function that enables aggregation capabilities
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| fn | <code>function</code> |  | Async function that has to be wrapped |
+| fn | <code>function</code> |  | Async function that has to be wrapped (usually a bulk function) |
 | options | <code>object</code> |  | Configuration |
 | options.maxWaitTime | <code>number</code> | <code>1000</code> | Max delay that can be introduced (calculated on the older item in queue ) |
 | options.maxItems | <code>number</code> | <code>100</code> | Max number of items that can be aggregated together |
@@ -61,7 +61,7 @@ const { fn, flush, cancel } = aggregateFn( myAggregableAsyncFn, {
 | --- | --- | --- |
 | fn | <code>function</code> | Wrapped version of the provided function |
 | flush | <code>function</code> | A function that forces to call immediately the original function regardless of maxWaitTime and maxItems configuration |
-| cancel | <code>function</code> | A function that cancels any pending request |
+| cancel | <code>function</code> | A function that cancels any pending request (by the way it rejects any pending promise) |
 
 <a name="statsCb"></a>
 
@@ -70,8 +70,8 @@ const { fn, flush, cancel } = aggregateFn( myAggregableAsyncFn, {
 
 | Param | Type | Description |
 | --- | --- | --- |
-| ok | <code>boolean</code> | Indicated if the requested has been completed with success |
-| count | <code>number</code> | Number of aggregated requests |
+| ok | <code>boolean</code> | Indicates if last execution has been completed with success |
+| count | <code>number</code> | Number of aggregated items |
 | swarf | <code>number</code> | Indicates the wasted aggregation (maxItems - count) |
-| delay | <code>number</code> | Delay introduced to the first queued request |
+| delay | <code>number</code> | Delay introduced to the first queued item |
 

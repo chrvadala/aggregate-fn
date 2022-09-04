@@ -4,7 +4,7 @@ const DEFAULT_MAX_ITEMS = 100
 /**
    * Creates a wrapper of the provided function that enables aggregation capabilities
    * @function aggregateFn
-   * @param {function} fn - Async function that has to be wrapped
+   * @param {function} fn - Async function that has to be wrapped (usually a bulk function)
    * @param {object} options - Configuration
    * @param {number} options.maxWaitTime=1000 - Max delay that can be introduced (calculated on the older item in queue )
    * @param {number} options.maxItems=100 - Max number of items that can be aggregated together
@@ -100,13 +100,13 @@ export function aggregateFn (fn, { maxWaitTime = DEFAULT_MAX_WAIT_TIME, maxItems
  * @typedef aggregateFnReturnedObject
  * @property {function} fn - Wrapped version of the provided function
  * @property {function} flush - A function that forces to call immediately the original function regardless of maxWaitTime and maxItems configuration
- * @property {function} cancel - A function that cancels any pending request
+ * @property {function} cancel - A function that cancels any pending request (by the way it rejects any pending promise)
  */
 
 /**
  * @callback statsCb
- * @param {boolean} ok - Indicated if the requested has been completed with success
- * @param {number} count - Number of aggregated requests
+ * @param {boolean} ok - Indicates if last execution has been completed with success
+ * @param {number} count - Number of aggregated items
  * @param {number} swarf - Indicates the wasted aggregation (maxItems - count)
- * @param {number} delay - Delay introduced to the first queued request
+ * @param {number} delay - Delay introduced to the first queued item
  */
