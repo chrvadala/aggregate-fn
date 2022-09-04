@@ -89,18 +89,13 @@ const SPOTIFY_CLIENTID = process.env.SPOTIFY_CLIENTID
 const SPOTIFY_SECRET = process.env.SPOTIFY_SECRET
 
 // Init aggregateFn
-const aggregateFnOpts = {
+const { fn: getArtist, flush, cancel } = aggregateFn(_getArtistBulk, {
   maxWaitTime: 1000,
   maxItems: 10,
   stats: stats => console.log(`Stats: ${JSON.stringify(stats)}`)
-}
+})
 
-const { fn: getArtist, flush, cancel } = aggregateFn(async artistIds => {
-  const token = await _getSpotifyToken(SPOTIFY_CLIENTID, SPOTIFY_SECRET)
-  return await _getArtistBulk(token, artistIds)
-}, aggregateFnOpts)
-
-//Executes multiple parallels async functions
+// Executes multiple parallels async functions
 Promise.all([
   (async function () {
     const info = await getArtist('1dfeR4HaWDbWqFHLkxsg1d')
@@ -116,9 +111,9 @@ Promise.all([
 process.on('SIGINT', () => flush())
 process.on('exit', () => cancel())
 
-
 // ** Spotify APIs ** //
-async function _getArtistBulk (token, artistIds) {
+async function _getArtistBulk (artistIds) {
+  const token = await _getSpotifyToken(SPOTIFY_CLIENTID, SPOTIFY_SECRET)
   const req = await fetch('https://api.spotify.com/v1/artists?ids=' + artistIds.join(','), {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -127,27 +122,24 @@ async function _getArtistBulk (token, artistIds) {
   })
 
   const json = await req.json()
+  if (!req.ok || !Array.isArray(json.artists)) throw new Error('Unable to retrieve Spotify data. Check your CLIENT_ID and SECRET.')
   return json.artists.map(({ name }) => name)
 }
 
 async function _getSpotifyToken (clientid, secret) {
-  try {
-    const req = await fetch('https://accounts.spotify.com/api/token', {
-      method: 'POST',
-      headers: {
-        Authorization: 'Basic ' + (Buffer.from(clientid + ':' + secret).toString('base64')),
-        'content-type': 'application/x-www-form-urlencoded'
-      },
-      body: 'grant_type=client_credentials'
-    })
+  const req = await fetch('https://accounts.spotify.com/api/token', {
+    method: 'POST',
+    headers: {
+      Authorization: 'Basic ' + (Buffer.from(clientid + ':' + secret).toString('base64')),
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    body: 'grant_type=client_credentials'
+  })
 
-    const token = await req.json()
-    return token.access_token
-  } catch (e) {
-    throw new Error('Unable to retrieve Spotify token: ' + e.message)
-  }
+  const json = await req.json()
+  if (!req.ok || !json.access_token) throw new Error('Unable to retrieve Spotify token. Check your CLIENT_ID and SECRET.')
+  return json.access_token
 }
-
 ````
 
 # Changelog
