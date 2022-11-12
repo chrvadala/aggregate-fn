@@ -145,6 +145,7 @@ async function _getSpotifyToken (clientid, secret) {
 # Changelog
 - **0.x** - Beta version
 - **1.0** - First official version
+- **1.1** - Upgrades deps and github actions
 # Contributors
 - [chrvadala](https://github.com/chrvadala) (author)
 
