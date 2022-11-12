@@ -1,11 +1,9 @@
 name: Test
 
 on:
-  push:
-  pull_request:
-  workflow_dispatch:
-  schedule:
-    - cron:  '13 0 1 * *'
+  - push
+  - pull_request
+  - workflow_dispatch
 
 jobs:
   build:
@@ -16,7 +14,7 @@ jobs:
     name: Test Nodejs v${{ matrix.node }} on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: chrvadala/github-actions/nodejs-test-library-action@v1
         with:
           NODE_VERSION: ${{ matrix.node }}

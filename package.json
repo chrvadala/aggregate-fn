@@ -4,6 +4,21 @@
   "description": "Aggregate fn is a Javascript utility that brings together multiple async operations. ",
   "type": "module",
   "main": "./src/index.js",
+  "keywords": [
+    "async",
+    "debounce",
+    "debouncing",
+    "throttle",
+    "batch",
+    "ratelimit"
+  ],
+  "files": [
+    "docs",
+    "src",
+    "*.md",
+    "test",
+    "examples"
+  ],
   "scripts": {
     "test": "npm run test:standard && npm run test:coverage",
     "test:jest": "NODE_OPTIONS=--experimental-vm-modules jest",
@@ -24,7 +39,7 @@
   "homepage": "https://github.com/chrvadala/aggregate-fn#readme",
   "funding": "https://www.paypal.me/chrvadala/25",
   "devDependencies": {
-    "jest": "^28.1.3",
+    "jest": "^29.3.1",
     "jsdoc-to-markdown": "^7.1.1",
     "standard": "^17.0.0"
   }
