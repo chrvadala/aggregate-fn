@@ -1,6 +1,6 @@
 # aggregate-fn
 
-Aggregate fn is a Javascript utility that gathers together multiple async operations. It is really useful when you want to merge many API requests, avoiding rate-limits.
+Aggregate fn is a Javascript utility that groups together multiple async operations. It is really useful when you want to merge many API requests, avoiding rate-limits.
 
 [![chrvadala](https://img.shields.io/badge/website-chrvadala-orange.svg)](https://chrvadala.github.io)
 [![Test](https://github.com/chrvadala/aggregate-fn/workflows/Test/badge.svg)](https://github.com/chrvadala/aggregate-fn/actions)
@@ -12,10 +12,17 @@ Aggregate fn is a Javascript utility that gathers together multiple async operat
 # Features 
 This utility can:
 - aggregate requests up to a configured upper limit
-- aggregate requests limiting the delay 
-- provide you interesting metrics
+- aggregate requests up to a max configured delay 
+- provide working metrics
 
-![aggregate-fn descriptive picture](https://github.com/chrvadala/aggregate-fn/blob/main/aggregate-fn.png)
+```javascript
+const { fn, flush, cancel } = aggregateFn(aggregableFn, {
+  maxWaitTime: 100,
+  maxItems: 10,
+  stats: console.log
+})
+```
+![aggregate-fn libray model](https://raw.githubusercontent.com/chrvadala/aggregate-fn/main/aggregate-fn.png)
 
 # Documentation
 - [APIs](https://github.com/chrvadala/aggregate-fn/blob/main/docs/api.md)
@@ -50,7 +57,7 @@ const { fn, flush, cancel } = aggregateFn(myAggregableAsyncFn, {
   stats: statsPrinter
 })
 
-//Executes multiple parallels async functions
+//Executes multiple parallel async functions
 Promise.all([
   (async function () {
     const res = await fn(1)
@@ -146,6 +153,8 @@ async function _getSpotifyToken (clientid, secret) {
 - **0.x** - Beta version
 - **1.0** - First official version
 - **1.1** - Upgrades deps and github actions
+- **1.2** - Improves docs, upgrades deps and github actions
+
 # Contributors
 - [chrvadala](https://github.com/chrvadala) (author)
 
