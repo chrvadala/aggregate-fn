@@ -39,8 +39,8 @@
   "homepage": "https://github.com/chrvadala/aggregate-fn#readme",
   "funding": "https://github.com/sponsors/chrvadala",
   "devDependencies": {
-    "jest": "^29.5.0",
-    "jsdoc-to-markdown": "^8.0.0",
-    "standard": "^17.0.0"
+    "jest": "^29.7.0",
+    "jsdoc-to-markdown": "^8.0.1",
+    "standard": "^17.1.0"
   }
 }
